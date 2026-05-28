@@ -4,6 +4,7 @@ using UnityEngine;
 public class DiceGame : MonoBehaviour
 {
     public GameObject[] Suspects;
+    public DiceController controller;
     private int correctSuspect = 4;
     private int lives = 3;
 
