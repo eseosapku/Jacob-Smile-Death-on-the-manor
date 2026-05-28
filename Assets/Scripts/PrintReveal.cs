@@ -15,16 +15,13 @@ public class PrintReveal : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        printMaterial = GetComponent<Material>();
+        printMaterial = GetComponent<Renderer>().material;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (isClose && printShown is true)
-        {
-
-        }
+     
     }
 
     private void OnTriggerEnter(Collider other)
@@ -32,6 +29,7 @@ public class PrintReveal : MonoBehaviour
         if( other.CompareTag("UV stick"))
         {
             isClose = true;
+            StartCoroutine(FadePrints());
         }
     }
 
@@ -43,7 +41,14 @@ public class PrintReveal : MonoBehaviour
         while(elapseTime < fadeTime)
         {
             elapseTime += Time.deltaTime;
-            float alphaNew = elapseTime / fadeTime;
+            float alphaAmount = elapseTime / fadeTime;
+
+            Color tempColor = printMaterial.color;
+            tempColor.a = alphaAmount;
+            printMaterial.color = tempColor;
+            
+            yield return null;
         }
+
     }
 }
