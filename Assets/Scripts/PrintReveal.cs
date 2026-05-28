@@ -1,9 +1,11 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using System.Collections;
+using UnityEngine.Rendering;
 
 public class PrintReveal : MonoBehaviour
 {
+    private Transform playerLocation;
     public AudioSource audiosource;
     private Material printMaterial;
     private float alphaAmount = 0f;
@@ -14,12 +16,15 @@ public class PrintReveal : MonoBehaviour
     void Start()
     {
         printMaterial = GetComponent<Renderer>().material;
+        playerLocation = GameObject.FindWithTag("Player").transform;
     }
 
     // Update is called once per frame
     void Update()
     {
-     
+     float distance = Vector3.Distance(transform.position, playerLocation.position);
+     float speed = Mathf.Lerp(0.75f, 2f, 1 - distance / 10);
+     audiosource.pitch = speed;
     }
 
     private void OnTriggerEnter(Collider other)
