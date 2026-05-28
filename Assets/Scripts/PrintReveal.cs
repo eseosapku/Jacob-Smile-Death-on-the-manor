@@ -4,13 +4,11 @@ using System.Collections;
 
 public class PrintReveal : MonoBehaviour
 {
-
-
+    public AudioSource audiosource;
     private Material printMaterial;
     private float alphaAmount = 0f;
     private bool isClose = false;
-    private float printSpeed = 0f;
-    private bool printShown = false;
+
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
