@@ -40,7 +40,8 @@ public class DiceGame : MonoBehaviour
         }
         else
         {
-            Debug.Log("you lose")
+            lives--;
+            Debug.Log("you have " + lives + " left");
         }
     }
 }
