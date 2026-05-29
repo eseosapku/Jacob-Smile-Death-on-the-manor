@@ -7,8 +7,8 @@ public class PickupName : MonoBehaviour
 
     public TextMeshProUGUI letterDisplay;
     public TextMeshProUGUI revealText;
-    private string targetName = "JOSEPH";
-    private string collectedLetters = "";
+    private static string targetName = "JOSEPH";
+    private static string collectedLetters = "";
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -53,5 +53,6 @@ public class PickupName : MonoBehaviour
         revealText.text = "JOSEPH...\n\nThe butler's name is Joseph.\n" +
                          "Young master Joseph's real name is Jonas.\n\n" +
                          "The butler is the poisoner.";
+        collectedLetters = "";
     }
 }
