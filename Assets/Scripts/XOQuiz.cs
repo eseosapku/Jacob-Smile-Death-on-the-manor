@@ -65,5 +65,6 @@ public class XOQuiz : MonoBehaviour
     void WinPuzzle()
     {
         resultText.text = "The butler's motive revealed.\nPrrimrose is saved";
+        PuzzleTracker.Instance.CompletePuzzle();
     }
 }

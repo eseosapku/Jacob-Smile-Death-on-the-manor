@@ -38,6 +38,7 @@ public class DiceGame : MonoBehaviour
         if (selectedIndex == correctSuspect)
         {
             Debug.Log("you win");
+            PuzzleTracker.Instance.CompletePuzzle();
         }
         else
         {

@@ -66,6 +66,7 @@ public class PickupName : MonoBehaviour
             if (collectedLetters == targetName)
             {
                 ShowReveal();
+                PuzzleTracker.Instance.CompletePuzzle();
             }
             else
             {

@@ -89,6 +89,7 @@ public class WordPuzzle : MonoBehaviour
         if (isCorrect)
         {
             Debug.Log("you win!");
+            PuzzleTracker.Instance.CompletePuzzle();
         }
         else
         {
