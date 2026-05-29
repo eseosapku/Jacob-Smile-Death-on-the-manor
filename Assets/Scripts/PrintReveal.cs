@@ -52,6 +52,9 @@ public class PrintReveal : MonoBehaviour
             
             yield return null;
         }
-        PuzzleTracker.Instance.CompletePuzzle();
+        if (PuzzleTracker.Instance != null)
+        {
+            PuzzleTracker.Instance.CompletePuzzle();
+        }
     }
 }
