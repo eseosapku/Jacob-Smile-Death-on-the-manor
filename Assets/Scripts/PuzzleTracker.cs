@@ -23,6 +23,8 @@ public class PuzzleTracker : MonoBehaviour
         puzzlesCompleted++;
         Debug.Log("Puzzle completed! Progress: " + puzzlesCompleted + "/" + totalPuzzles);
         UpdateProgress();
+        PuzzleSequence seq = FindFirstObjectByType<PuzzleSequence>();
+        seq.OnPuzzleComplete();
     }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
