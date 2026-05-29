@@ -10673,6 +10673,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   arrangementDisplay: {fileID: 761244339}
   submitButton: {fileID: 2125513921}
+  arrangementPanel: {fileID: 277714130}
 --- !u!1 &2146147648
 GameObject:
   m_ObjectHideFlags: 0
