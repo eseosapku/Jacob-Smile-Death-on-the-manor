@@ -43,6 +43,7 @@ public class PlayerController : MonoBehaviour
         player.Move(finalMove * Time.deltaTime);
     }
 
+
     void MouseView()
     {
         float mouseX = Input.GetAxis("Mouse X") * mouseSpeed;
