@@ -2,12 +2,14 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    public GameObject controller;
     public float playerSpeed = 5f;
     public float mouseSpeed = 2f;
+    public float gravity = -9.81f;
     private CharacterController player;
     private Camera playerCamera;
+    private float verticalVelocity = 0f;
     private float playerRotation = 0f;
+
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -20,38 +22,39 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        float moveX = Input.GetAxis("Horizontal");
-        float moveZ = Input.GetAxis("Vertical");
+        PlayerMovement();
+        MouseView();
     }
 
     void PlayerMovement()
     {
-        if(Input.GetKey(KeyCode.W))
+        float moveX = Input.GetAxis("Horizontal");
+        float moveZ = Input.GetAxis("Vertical");
+        Vector3 moveDirection = (transform.right * moveX) + (transform.forward * moveZ);
+        Vector3 finalMove = moveDirection * playerSpeed;
+        if (player.isGrounded && verticalVelocity < 0)
         {
-            player.transform.Translate(0, 0, playerSpeed  * Time.deltaTime);
+            verticalVelocity = -2f;
         }
-        if (Input.GetKey(KeyCode.S))
+        else
         {
-            player.transform.Translate(0, 0, -playerSpeed * Time.deltaTime);
+            verticalVelocity += gravity * Time.deltaTime;
         }
-        if (Input.GetKey(KeyCode.A))
-        {
-            player.transform.Translate(-playerSpeed * Time.deltaTime, 0, 0);
-        }
-        if (Input.GetKey(KeyCode.D))
-        {
-            player.transform.Translate(playerSpeed * Time.deltaTime, 0, 0);
-        }
+        finalMove.y = verticalVelocity;
+        player.Move(finalMove * Time.deltaTime);
     }
 
     void MouseView()
     {
         float mouseX = Input.GetAxis("Mouse X") * mouseSpeed;
         float mouseY = Input.GetAxis("Mouse Y") * mouseSpeed;
-        player.transform.Rotate(Vector3.up * mouseX);
+        transform.Rotate(Vector3.up * mouseX);
         playerRotation -= mouseY;
         playerRotation = Mathf.Clamp(playerRotation, -90f, 90f);
-        transform.localRotation = Quaternion.Euler(playerRotation, 0f, 0f);
+        if (playerCamera != null)
+        {
+            playerCamera.transform.localRotation = Quaternion.Euler(playerRotation, 0f, 0f);
+        }
     }
 }
 
