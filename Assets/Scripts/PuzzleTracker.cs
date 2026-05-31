@@ -6,6 +6,7 @@ public class PuzzleTracker : MonoBehaviour
     public TextMeshProUGUI progressText;
     private int puzzlesCompleted = 0;
     private int totalPuzzles = 5;
+    private bool isPuzzleComplete = false;
     public static PuzzleTracker Instance { get; private set; }
 
     private void Awake()
@@ -20,11 +21,16 @@ public class PuzzleTracker : MonoBehaviour
 
     public void CompletePuzzle()
     {
+        if (isPuzzleComplete) return;
+        isPuzzleComplete = true;
         puzzlesCompleted++;
-        Debug.Log("Puzzle completed! Progress: " + puzzlesCompleted + "/" + totalPuzzles);
+        Debug.Log("Progress: " + puzzlesCompleted + "/" + totalPuzzles);
         UpdateProgress();
         PuzzleSequence seq = FindFirstObjectByType<PuzzleSequence>();
-        seq.OnPuzzleComplete();
+        if (seq != null)
+        {
+            seq.OnPuzzleComplete();
+        }
     }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -36,7 +42,11 @@ public class PuzzleTracker : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+  
+    }
+    public void ResetPuzzleFlag()
+    {
+        isPuzzleComplete = false;
     }
 
     private void UpdateProgress()

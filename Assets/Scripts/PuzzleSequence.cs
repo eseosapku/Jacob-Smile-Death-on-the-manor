@@ -1,67 +1,126 @@
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PuzzleSequence : MonoBehaviour
 {
     public TextMeshProUGUI instructionText;
+    public Button beginButton;
     public GameObject puzzle1;
     public GameObject puzzle2;
     public GameObject puzzle3;
     public GameObject puzzle4;
     public GameObject puzzle5;
     private int currentPuzzle = 0;
+    public static bool gameStarted = false;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        ShowPuzzle1();
+        ShowIntro();
+        gameStarted = false;
+        beginButton.onClick.AddListener(OnBeginClicked);
+        AudioSource[] allAudio = FindObjectsByType<AudioSource>(FindObjectsSortMode.None);
+        foreach (AudioSource audio in allAudio)
+        {
+            if (audio.gameObject.name != "HeartBeat audio")
+            {
+                audio.Stop();
+            }
+        }
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+
     }
-    void ShowPuzzle1()
+
+    void ShowIntro()
     {
-        instructionText.text = "A man is dead. Poisoned.\nYour client, Primrose, is accused.\n\nYou must find the truth.\n\nStart by examining the crime scene.\nUse the UV light on the glass.";
+        instructionText.text = "You are Detective Jacob Smile.\n\n" +
+            "A man is dead. Poisoned.\n\n" +
+            "Your client, Primrose, is accused.\n" +
+            "She faces life in prison.\n\n" +
+            "You have 6 days to find the truth.\n\n" +
+            "This is your final day.";
         puzzle1.SetActive(true);
         puzzle2.SetActive(false);
         puzzle3.SetActive(false);
         puzzle4.SetActive(false);
         puzzle5.SetActive(false);
-        currentPuzzle = 1;
+        beginButton.gameObject.SetActive(true);
+        currentPuzzle = 0;
     }
 
-    void ShowPuzzle2()
+    void OnBeginClicked()
+    {
+        if (currentPuzzle == 0)
+        {
+            gameStarted = true;
+            instructionText.text = "Start by examining the crime scene.\nUse the UV Light to look for clues.\n\nThe faster the heartbeat the closer you are.";
+            beginButton.gameObject.SetActive(false);
+            currentPuzzle = 0;
+        }
+    }
+    public void ShowPuzzle1()
+    {
+        puzzle1.SetActive(true);
+        Debug.Log("ShowPuzzle1 called - puzzle1 is: " + puzzle1.name);
+        Debug.Log("Puzzle1 active before: " + puzzle1.activeSelf);
+
+        gameStarted = true;
+        PuzzleTracker.Instance.ResetPuzzleFlag();
+        instructionText.text = "Start by examining the crime scene...";
+
+        Debug.Log("Puzzle1 active after: " + puzzle1.activeSelf);
+
+        puzzle2.SetActive(false);
+        puzzle3.SetActive(false);
+        puzzle4.SetActive(false);
+        puzzle5.SetActive(false);
+        currentPuzzle = 1;
+        beginButton.gameObject.SetActive(true);
+    }
+
+    public void ShowPuzzle2()
     {
         instructionText.text = "The fingerprints match Primrose.\nBut something feels wrong.\n\nYou must use the SMILES ability.\nSelect a suspect and roll the dice.\nIf you're correct, the dice shows 6.";
-        puzzle2.SetActive(true);
+        AudioSource heartbeat = GameObject.Find("HeartBeat audio")?.GetComponent<AudioSource>();
+        if (heartbeat != null)
+        {
+            heartbeat.Stop();
+        }
         puzzle1.SetActive(false);
+        puzzle2.SetActive(true);
         currentPuzzle = 2;
+        beginButton.gameObject.SetActive(true);
     }
 
-    void ShowPuzzle3()
+    public void ShowPuzzle3()
     {
         instructionText.text = "The SMILES reveals the truth:\nThe poison was in the ICE, not the milk.\n\nArrange the words to understand what happened.";
         puzzle3.SetActive(true);
         puzzle2.SetActive(false);
         currentPuzzle = 3;
+        beginButton.gameObject.SetActive(false);
     }
 
-    void ShowPuzzle4()
+    public void ShowPuzzle4()
     {
         instructionText.text = "The butler's name is scattered across the room.\nCollect the letters to uncover the poisoner's identity.";
         puzzle4.SetActive(true);
         puzzle3.SetActive(false);
         currentPuzzle = 4;
+        beginButton.gameObject.SetActive(false);
     }
 
-    void ShowPuzzle5()
+    public void ShowPuzzle5()
     {
         instructionText.text = "Now you know WHO did it.\nBut WHY did the butler kill Hendrick?\n\nAnswer the questions. True or False?";
         puzzle5.SetActive(true);
         puzzle4.SetActive(false);
         currentPuzzle = 5;
+        beginButton.gameObject.SetActive(false);
     }
 
     public void OnPuzzleComplete()
@@ -72,6 +131,8 @@ public class PuzzleSequence : MonoBehaviour
         else if (currentPuzzle == 4) ShowPuzzle5();
         else if (currentPuzzle == 5) GameComplete();
     }
+
+
 
     void GameComplete()
     {

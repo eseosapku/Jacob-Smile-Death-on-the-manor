@@ -10,6 +10,7 @@ public class PrintReveal : MonoBehaviour
     private Material printMaterial;
     private float alphaAmount = 0f;
     private bool isClose = false;
+    private bool isRevealing = false;
 
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -27,14 +28,22 @@ public class PrintReveal : MonoBehaviour
      audiosource.pitch = speed;
     }
 
-    private void OnTriggerEnter(Collider other)
+    private void OnTriggerStay(Collider other)
     {
-        if( other.CompareTag("UV stick"))
+        if (other.CompareTag("UV stick"))
         {
-            isClose = true;
+            RevealFingerprints();
+        }
+    }
+    public void RevealFingerprints()
+    {
+        if (!isRevealing)
+        {
+            isRevealing = true;
             StartCoroutine(FadePrints());
         }
     }
+
 
     IEnumerator FadePrints()  
     {
