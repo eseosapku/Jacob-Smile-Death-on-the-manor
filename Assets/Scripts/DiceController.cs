@@ -1,32 +1,56 @@
 using UnityEngine;
+using System.Collections;
+using TMPro;
 
 public class DiceController : MonoBehaviour
 {
+    public TextMeshProUGUI resultText;
     private Animator animator;
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    private bool isRolling = false;
+
     void Start()
     {
         animator = GetComponent<Animator>();
+        animator.enabled = false;
     }
 
-    // Update is called once per frame
-    void Update()
+    public void RollDice(bool isCorrect)
     {
-        
+        if (isRolling) return;
+        StartCoroutine(RollAnimation(isCorrect));
     }
 
-    public void RollDice(bool istrue)
+    IEnumerator RollAnimation(bool isCorrect)
     {
+        isRolling = true;
+
+        animator.enabled = true;
         animator.SetTrigger("diceRoll");
 
-        if (istrue)
+        yield return new WaitForSeconds(2f);
+
+        int finalNumber;
+        if (isCorrect)
         {
-            animator.SetInteger("Face", 6);
+            finalNumber = 6;
         }
         else
         {
-            int randomNumber = Random.Range(1, 6);
-            animator.SetInteger("Face", randomNumber);
+            finalNumber = Random.Range(1, 6);
         }
+
+        animator.SetInteger("Face", finalNumber);
+
+        if (resultText != null)
+        {
+            resultText.text = "Dice rolled: " + finalNumber;
+        }
+
+        Debug.Log("Dice landed on: " + finalNumber);
+
+        yield return new WaitForSeconds(1f);
+
+        animator.enabled = false;
+        isRolling = false;
     }
 }

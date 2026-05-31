@@ -5,8 +5,8 @@ public class DiceGame : MonoBehaviour
 {
     public GameObject[] Suspects;
     public DiceController controller;
-    private int correctSuspect = 4;
-    private int lives = 3;
+    private int correctSuspect = 0;
+    private int lives = 10;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -38,17 +38,19 @@ public class DiceGame : MonoBehaviour
         }
     }
 
-    void RollDice (int selectedIndex)
+    void RollDice(int selectedIndex)
     {
-        if (selectedIndex == correctSuspect)
+        bool isCorrect = (selectedIndex == correctSuspect);
+        controller.RollDice(isCorrect);
+
+        if (isCorrect)
         {
-            Debug.Log("you win");
+            Debug.Log("Correct suspect!");
             PuzzleTracker.Instance.CompletePuzzle();
         }
         else
         {
-            lives--;
-            Debug.Log("you have " + lives + " left");
+            TotalLives.Instance.LoseLife();  // Use global lives
         }
     }
 }

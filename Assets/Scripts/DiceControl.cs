@@ -2,15 +2,16 @@ using UnityEngine;
 
 public class DiceControl : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    private DiceController diceController;
+
     void Start()
     {
-        
+        diceController = GetComponent<DiceController>();
     }
 
-    // Update is called once per frame
     void Update()
     {
+        // Don't move while rolling
         if (Input.GetMouseButton(1))
         {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
