@@ -17,11 +17,16 @@ public class DiceGame : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (Suspects == null || Suspects.Length == 0)
+        {
+            Debug.Log("ERROR: Suspects array not assigned!");
+            return;
+        }
+
         if (Input.GetMouseButtonDown(0) && lives > 0)
         {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
-
             if (Physics.Raycast(ray, out hit))
             {
                 int index = System.Array.IndexOf(Suspects, hit.collider.gameObject);

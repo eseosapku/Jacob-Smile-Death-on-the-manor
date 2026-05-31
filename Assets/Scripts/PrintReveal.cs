@@ -45,12 +45,12 @@ public class PrintReveal : MonoBehaviour
     }
 
 
-    IEnumerator FadePrints()  
+    IEnumerator FadePrints()
     {
         float fadeTime = 2f;
         float elapseTime = 0f;
 
-        while(elapseTime < fadeTime)
+        while (elapseTime < fadeTime)
         {
             elapseTime += Time.deltaTime;
             float alphaAmount = elapseTime / fadeTime;
@@ -58,12 +58,18 @@ public class PrintReveal : MonoBehaviour
             Color tempColor = printMaterial.color;
             tempColor.a = alphaAmount;
             printMaterial.color = tempColor;
-            
+
             yield return null;
         }
+        Debug.Log("Fingerprints complete - calling OnPuzzleComplete");
+
         if (PuzzleTracker.Instance != null)
         {
-            PuzzleTracker.Instance.CompletePuzzle();
+            PuzzleTracker.Instance.CompletePuzzle();  // This calls OnPuzzleComplete internally
+        }
+        else
+        {
+            Debug.Log("ERROR: PuzzleTracker not found!");
         }
     }
 }

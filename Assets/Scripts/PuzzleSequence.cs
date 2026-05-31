@@ -11,7 +11,7 @@ public class PuzzleSequence : MonoBehaviour
     public GameObject puzzle3;
     public GameObject puzzle4;
     public GameObject puzzle5;
-    private int currentPuzzle = 0;
+    public int currentPuzzle = 0;
     public static bool gameStarted = false;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -35,7 +35,7 @@ public class PuzzleSequence : MonoBehaviour
 
     }
 
-    void ShowIntro()
+    public void ShowIntro()
     {
         instructionText.text = "You are Detective Jacob Smile.\n\n" +
             "A man is dead. Poisoned.\n\n" +
@@ -59,7 +59,7 @@ public class PuzzleSequence : MonoBehaviour
             gameStarted = true;
             instructionText.text = "Start by examining the crime scene.\nUse the UV Light to look for clues.\n\nThe faster the heartbeat the closer you are.";
             beginButton.gameObject.SetActive(false);
-            currentPuzzle = 0;
+            currentPuzzle = 1; 
         }
     }
     public void ShowPuzzle1()
@@ -84,16 +84,24 @@ public class PuzzleSequence : MonoBehaviour
 
     public void ShowPuzzle2()
     {
+        Debug.Log("ShowPuzzle2 called!");
         instructionText.text = "The fingerprints match Primrose.\nBut something feels wrong.\n\nYou must use the SMILES ability.\nSelect a suspect and roll the dice.\nIf you're correct, the dice shows 6.";
+
+        Debug.Log("Stopping heartbeat audio");
         AudioSource heartbeat = GameObject.Find("HeartBeat audio")?.GetComponent<AudioSource>();
         if (heartbeat != null)
         {
             heartbeat.Stop();
+            Debug.Log("Heartbeat stopped");
         }
+
+        Debug.Log("Deactivating puzzle1, activating puzzle2");
         puzzle1.SetActive(false);
         puzzle2.SetActive(true);
+
         currentPuzzle = 2;
         beginButton.gameObject.SetActive(true);
+        Debug.Log("ShowPuzzle2 complete - currentPuzzle is now: " + currentPuzzle);
     }
 
     public void ShowPuzzle3()
