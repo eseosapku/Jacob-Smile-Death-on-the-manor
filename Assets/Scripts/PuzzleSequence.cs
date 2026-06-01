@@ -4,6 +4,7 @@ using UnityEngine.UI;
 
 public class PuzzleSequence : MonoBehaviour
 {
+    public TextMeshProUGUI LetterDisplay;
     public TextMeshProUGUI revealText; 
     public Button submitButton;
     public Button submitName;
@@ -56,6 +57,7 @@ public class PuzzleSequence : MonoBehaviour
         if (revealText != null) revealText.gameObject.SetActive(false);
         if (submitButton != null) submitButton.gameObject.SetActive(false);
         if (submitName != null) submitName.gameObject.SetActive(false);
+        if (LetterDisplay != null) LetterDisplay.gameObject.SetActive(false);
     }
 
     void OnBeginClicked()
@@ -87,7 +89,9 @@ public class PuzzleSequence : MonoBehaviour
         {
             instructionText.text = "Find the letters! Left-click to collect, Right-click to return.";
             beginButton.gameObject.SetActive(false);
-            if (submitButton != null) submitButton.gameObject.SetActive(true);
+            if (submitButton != null) submitButton.gameObject.SetActive(false);
+            if (submitName != null) submitName.gameObject.SetActive(true);
+            if (LetterDisplay != null) LetterDisplay.gameObject.SetActive(true);
         }
     }
 
@@ -134,8 +138,10 @@ public class PuzzleSequence : MonoBehaviour
         puzzle4.SetActive(true);
         currentPuzzle = 4;
         if (submitButton != null) submitButton.gameObject.SetActive(false);
-        beginButton.gameObject.SetActive(true);
+        beginButton.gameObject.SetActive(false);
         if (revealText != null) revealText.gameObject.SetActive(false);
+        if (LetterDisplay != null) LetterDisplay.gameObject.SetActive(true);
+        if (submitName != null) submitName.gameObject.SetActive(true);
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
     }
@@ -150,6 +156,7 @@ public class PuzzleSequence : MonoBehaviour
         beginButton.gameObject.SetActive(true);
         PuzzleTracker.Instance.ResetPuzzleFlag();
         if (revealText != null) revealText.gameObject.SetActive(false);
+        if (LetterDisplay != null) LetterDisplay.gameObject.SetActive(false);
         if (submitButton != null) submitButton.gameObject.SetActive(true);
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
