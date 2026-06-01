@@ -79,7 +79,8 @@ public class PickupName : MonoBehaviour
 
         void ShowReveal()
         {
-            revealText.text = "JOSEPH...\n\nThe butler's name is Joseph.\n" +
+        revealText.gameObject.SetActive(true);
+        revealText.text = "JOSEPH...\n\nThe butler's name is Joseph.\n" +
                              "Young master Joseph's real name is Jonas.\n\n" +
                              "The butler is the poisoner.";
             collectedLetters = "";

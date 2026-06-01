@@ -4,7 +4,9 @@ using UnityEngine.UI;
 
 public class PuzzleSequence : MonoBehaviour
 {
+    public TextMeshProUGUI revealText; 
     public Button submitButton;
+    public Button submitName;
     public TextMeshProUGUI diceResult;
     public TextMeshProUGUI instructionText;
     public Button beginButton;
@@ -34,6 +36,8 @@ public class PuzzleSequence : MonoBehaviour
 
     public void ShowIntro()
     {
+        GameObject revealObj = GameObject.Find("RevealText");
+        if (revealObj != null) revealObj.SetActive(false);
         instructionText.text = "You are Detective Jacob Smile.\n\n" +
             "A man is dead. Poisoned.\n\n" +
             "Your client, Primrose, is accused.\n" +
@@ -49,7 +53,9 @@ public class PuzzleSequence : MonoBehaviour
         currentPuzzle = 0;
         if(diceResult != null)
         diceResult.gameObject.SetActive(false);
+        if (revealText != null) revealText.gameObject.SetActive(false);
         if (submitButton != null) submitButton.gameObject.SetActive(false);
+        if (submitName != null) submitName.gameObject.SetActive(false);
     }
 
     void OnBeginClicked()
@@ -129,6 +135,7 @@ public class PuzzleSequence : MonoBehaviour
         currentPuzzle = 4;
         if (submitButton != null) submitButton.gameObject.SetActive(false);
         beginButton.gameObject.SetActive(true);
+        if (revealText != null) revealText.gameObject.SetActive(false);
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
     }
@@ -140,7 +147,12 @@ public class PuzzleSequence : MonoBehaviour
         puzzle4.SetActive(false);
         puzzle5.SetActive(true);
         currentPuzzle = 5;
-        beginButton.gameObject.SetActive(false);
+        beginButton.gameObject.SetActive(true);
+        PuzzleTracker.Instance.ResetPuzzleFlag();
+        if (revealText != null) revealText.gameObject.SetActive(false);
+        if (submitButton != null) submitButton.gameObject.SetActive(true);
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
     }
 
     public void OnPuzzleComplete()
