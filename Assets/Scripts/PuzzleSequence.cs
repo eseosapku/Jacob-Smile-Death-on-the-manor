@@ -77,6 +77,12 @@ public class PuzzleSequence : MonoBehaviour
             }
             if (submitButton != null) submitButton.gameObject.SetActive(true);
         }
+        else if (currentPuzzle == 4)
+        {
+            instructionText.text = "Find the letters! Left-click to collect, Right-click to return.";
+            beginButton.gameObject.SetActive(false);
+            if (submitButton != null) submitButton.gameObject.SetActive(true);
+        }
     }
 
     public void ShowPuzzle2()
@@ -116,12 +122,15 @@ public class PuzzleSequence : MonoBehaviour
     public void ShowPuzzle4()
     {
         if (currentPuzzle >= 4) return;
-        instructionText.text = "The butler's name is scattered across the room.\nCollect the letters to uncover the poisoner's identity.";
+        PuzzleTracker.Instance.ResetPuzzleFlag();
+        instructionText.text = "Who put the poision Ice in the milk. SMILE has scattered the name across the room.\nCollect the letters to uncover the poisoner's identity.";
         puzzle3.SetActive(false);
         puzzle4.SetActive(true);
         currentPuzzle = 4;
         if (submitButton != null) submitButton.gameObject.SetActive(false);
         beginButton.gameObject.SetActive(true);
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
     }
 
     public void ShowPuzzle5()

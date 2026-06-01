@@ -63,15 +63,18 @@ public class PickupName : MonoBehaviour
 
     void CheckName()
         {
-            if (collectedLetters == targetName)
+            if (collectedLetters.ToUpper() == targetName.ToUpper())
             {
                 ShowReveal();
                 PuzzleTracker.Instance.CompletePuzzle();
             }
             else
             {
-                Debug.Log("Wrong name. Try again.");
-            }
+            Debug.Log("Wrong name. Try again.");
+            TotalLives.Instance.LoseLife();  
+            collectedLetters = "";
+            letterDisplay.text = "";
+        }
         }
 
         void ShowReveal()
