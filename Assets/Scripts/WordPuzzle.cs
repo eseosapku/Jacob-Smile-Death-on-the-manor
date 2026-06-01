@@ -85,17 +85,22 @@ public class WordPuzzle : MonoBehaviour
     }
     private void CheckAnswer()
     {
+        Debug.Log("CheckAnswer called. PlayerOrder count: " + playerOrder.Count);
+        Debug.Log("Player order: " + string.Join(", ", playerOrder));
+        Debug.Log("Correct order: " + string.Join(", ", correctOrder));
         if (playerOrder.Count != correctOrder.Length)
         {
-            Debug.Log("Not all words placed yet. Need " + correctOrder.Length + " words.");
+            Debug.Log("Word count mismatch. Need " + correctOrder.Length + " words, have " + playerOrder.Count);
             return;
         }
         bool isCorrect = true;
         for (int i = 0; i < correctOrder.Length; i++)
         {
-            if (playerOrder[i] == correctOrder[i])
+            Debug.Log("Comparing: '" + playerOrder[i] + "' vs '" + correctOrder[i] + "'");
+            if (playerOrder[i] != correctOrder[i])
             {
-                PuzzleTracker.Instance.CompletePuzzle();
+                isCorrect = false;
+                Debug.Log("MISMATCH at index " + i);
                 break;
             }
         }

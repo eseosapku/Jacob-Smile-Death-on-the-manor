@@ -2692,7 +2692,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 258, y: -139.975}
+  m_AnchoredPosition: {x: 258, y: -158}
   m_SizeDelta: {x: 590, y: -197.69669}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &277714130
@@ -13624,6 +13624,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fa404553e2526854c9617ad6da202205, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  submitButton: {fileID: 2125513921}
   diceResult: {fileID: 1779504839}
   instructionText: {fileID: 1714701118}
   beginButton: {fileID: 161566605}
@@ -16994,7 +16995,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &2125513920
 RectTransform:
   m_ObjectHideFlags: 0
@@ -17012,7 +17013,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -61}
+  m_AnchoredPosition: {x: 0, y: -80}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2125513921

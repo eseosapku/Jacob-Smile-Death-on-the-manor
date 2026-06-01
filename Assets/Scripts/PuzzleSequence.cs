@@ -4,6 +4,7 @@ using UnityEngine.UI;
 
 public class PuzzleSequence : MonoBehaviour
 {
+    public Button submitButton;
     public TextMeshProUGUI diceResult;
     public TextMeshProUGUI instructionText;
     public Button beginButton;
@@ -48,6 +49,7 @@ public class PuzzleSequence : MonoBehaviour
         currentPuzzle = 0;
         if(diceResult != null)
         diceResult.gameObject.SetActive(false);
+        if (submitButton != null) submitButton.gameObject.SetActive(false);
     }
 
     void OnBeginClicked()
@@ -73,6 +75,7 @@ public class PuzzleSequence : MonoBehaviour
             {
                 diceResult.text = "";  
             }
+            if (submitButton != null) submitButton.gameObject.SetActive(true);
         }
     }
 
@@ -103,6 +106,7 @@ public class PuzzleSequence : MonoBehaviour
         puzzle3.SetActive(true);
         if (diceResult != null)
             diceResult.gameObject.SetActive(false);
+        if (submitButton != null) submitButton.gameObject.SetActive(true);
         currentPuzzle = 3;
         beginButton.gameObject.SetActive(true);
         Cursor.lockState = CursorLockMode.None;
@@ -116,7 +120,8 @@ public class PuzzleSequence : MonoBehaviour
         puzzle3.SetActive(false);
         puzzle4.SetActive(true);
         currentPuzzle = 4;
-        beginButton.gameObject.SetActive(false);
+        if (submitButton != null) submitButton.gameObject.SetActive(false);
+        beginButton.gameObject.SetActive(true);
     }
 
     public void ShowPuzzle5()
