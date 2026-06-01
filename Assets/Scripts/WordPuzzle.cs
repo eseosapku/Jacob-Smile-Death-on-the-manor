@@ -106,8 +106,9 @@ public class WordPuzzle : MonoBehaviour
         }
         if (isCorrect)
         {
-            Debug.Log("you win!");
+            Debug.Log("Puzzle 3 WIN - calling CompletePuzzle");
             PuzzleTracker.Instance.CompletePuzzle();
+            Debug.Log("After CompletePuzzle - currentPuzzle: " + PuzzleSequence.gameStarted);
         }
         else
         {

@@ -137,7 +137,12 @@ public class PuzzleSequence : MonoBehaviour
 
     public void ShowPuzzle4()
     {
-        if (currentPuzzle >= 4) return;
+        Debug.Log("ShowPuzzle4 called! currentPuzzle is: " + currentPuzzle);
+        if (currentPuzzle >= 4)
+        {
+            Debug.Log("BLOCKED - currentPuzzle already >= 4");
+            return;
+        }
         PuzzleTracker.Instance.ResetPuzzleFlag();
         instructionText.text = "Who put the poision Ice in the milk. SMILE has scattered the name across the room.\nCollect the letters to uncover the poisoner's identity.";
         puzzle3.SetActive(false);

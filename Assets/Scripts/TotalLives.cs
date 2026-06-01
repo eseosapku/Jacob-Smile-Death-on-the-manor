@@ -1,5 +1,6 @@
 ﻿using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class TotalLives : MonoBehaviour
 {
@@ -24,14 +25,10 @@ public class TotalLives : MonoBehaviour
 
     public void LoseLife()
     {
+        Debug.Log("LIFE LOST at puzzle: " + FindFirstObjectByType<PuzzleSequence>().currentPuzzle + " | Stack: " + System.Environment.StackTrace);
         lives--;
-        Debug.Log("Life lost! Lives remaining: " + lives);
         UpdateLivesDisplay();
-
-        if (lives <= 0)
-        {
-            GameOver();
-        }
+        if (lives <= 0) GameOver();
     }
 
     void UpdateLivesDisplay()
@@ -45,7 +42,8 @@ public class TotalLives : MonoBehaviour
     void GameOver()
     {
         Debug.Log("GAME OVER - No lives left!");
-        // We'll add game over screen later
+        lives = 10;  // Reset lives for next attempt
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 }
 

@@ -1,7 +1,9 @@
 using UnityEngine;
+using UnityEngine.Audio;
 
 public class UvControl : MonoBehaviour
 {
+    private float lifeTimer = 0f;
     private Camera playerCamera;
     private bool isDragging = false;
     private float dragDistance = 1.3f;
@@ -18,13 +20,11 @@ public class UvControl : MonoBehaviour
         {
             Ray ray = playerCamera.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
-
             if (Physics.Raycast(ray, out hit))
             {
                 if (hit.collider.gameObject == gameObject)
                 {
                     isDragging = true;
-                    Debug.Log("UV Stick selected - drag to move");
                 }
             }
         }
@@ -33,13 +33,10 @@ public class UvControl : MonoBehaviour
             Ray ray = playerCamera.ScreenPointToRay(Input.mousePosition);
             transform.position = ray.origin + ray.direction * dragDistance;
         }
+
         if (Input.GetMouseButtonUp(0))
         {
-            if (isDragging)
-            {
-                isDragging = false;
-                Debug.Log("UV Stick released");
-            }
+            isDragging = false;
         }
     }
 }
