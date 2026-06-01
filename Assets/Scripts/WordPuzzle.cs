@@ -11,7 +11,7 @@ public class WordPuzzle : MonoBehaviour
     public Image arrangementPanel;
     private string[] correctOrder =
     {
-        "The", "Poison", "is", "inside", "the", "ice",
+        "The", "poison", "is", "inside", "the", "ice",
         "not", "in", "milk"
     };
     private List<string> playerOrder = new List<string>();
@@ -39,15 +39,23 @@ public class WordPuzzle : MonoBehaviour
     {
         playerOrder.Clear();
         arrangementDisplay.text = "";
+        usedWords.Clear();
     }
 
     private void CheckWordPosition()
     {
         int index = playerOrder.Count - 1;
 
+        if (index >= correctOrder.Length)
+        {
+            arrangementPanel.color = Color.red;
+            TotalLives.Instance.LoseLife();
+            return;
+        }
         if (playerOrder[index] != correctOrder[index])
         {
             arrangementPanel.color = Color.red;
+            TotalLives.Instance.LoseLife();
         }
         else
         {
@@ -77,12 +85,17 @@ public class WordPuzzle : MonoBehaviour
     }
     private void CheckAnswer()
     {
+        if (playerOrder.Count != correctOrder.Length)
+        {
+            Debug.Log("Not all words placed yet. Need " + correctOrder.Length + " words.");
+            return;
+        }
         bool isCorrect = true;
         for (int i = 0; i < correctOrder.Length; i++)
         {
-            if (playerOrder[i] != correctOrder[i])
+            if (playerOrder[i] == correctOrder[i])
             {
-                isCorrect = false;
+                PuzzleTracker.Instance.CompletePuzzle();
                 break;
             }
         }

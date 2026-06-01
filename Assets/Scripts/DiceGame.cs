@@ -50,7 +50,7 @@ public class DiceGame : MonoBehaviour
         }
         else
         {
-            TotalLives.Instance.LoseLife();  // Use global lives
+            TotalLives.Instance.LoseLife();  
         }
     }
 }

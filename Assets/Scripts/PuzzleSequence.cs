@@ -67,8 +67,12 @@ public class PuzzleSequence : MonoBehaviour
         }
         else if (currentPuzzle == 3)
         {
-            instructionText.text = "";
+            instructionText.text = "Click the words in order to build the sentence.";
             beginButton.gameObject.SetActive(false);
+            if (diceResult != null)
+            {
+                diceResult.text = "";  
+            }
         }
     }
 
@@ -93,6 +97,7 @@ public class PuzzleSequence : MonoBehaviour
     {
         Debug.Log("ShowPuzzle3 called!");
         if (currentPuzzle >= 3) return;
+        PuzzleTracker.Instance.ResetPuzzleFlag();
         instructionText.text = "The SMILES reveals the truth...";
         puzzle2.SetActive(false);
         puzzle3.SetActive(true);
@@ -100,6 +105,8 @@ public class PuzzleSequence : MonoBehaviour
             diceResult.gameObject.SetActive(false);
         currentPuzzle = 3;
         beginButton.gameObject.SetActive(true);
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
     }
 
     public void ShowPuzzle4()
