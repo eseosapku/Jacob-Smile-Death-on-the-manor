@@ -5,7 +5,8 @@ using UnityEngine.UI;
 public class PuzzleSequence : MonoBehaviour
 {
     public TextMeshProUGUI LetterDisplay;
-    public TextMeshProUGUI revealText; 
+    public TextMeshProUGUI revealText;
+    public TextMeshProUGUI TitleText;
     public Button submitButton;
     public Button submitName;
     public TextMeshProUGUI diceResult;
@@ -93,6 +94,11 @@ public class PuzzleSequence : MonoBehaviour
             if (submitName != null) submitName.gameObject.SetActive(true);
             if (LetterDisplay != null) LetterDisplay.gameObject.SetActive(true);
         }
+        else if (currentPuzzle == 5)
+        {
+            instructionText.text = "Click X for lie, O for truth.";
+            beginButton.gameObject.SetActive(false);
+        }
     }
 
     public void ShowPuzzle2()
@@ -157,7 +163,9 @@ public class PuzzleSequence : MonoBehaviour
         PuzzleTracker.Instance.ResetPuzzleFlag();
         if (revealText != null) revealText.gameObject.SetActive(false);
         if (LetterDisplay != null) LetterDisplay.gameObject.SetActive(false);
-        if (submitButton != null) submitButton.gameObject.SetActive(true);
+        if (submitButton != null) submitButton.gameObject.SetActive(false);
+        GameObject letterDisplay = GameObject.Find("LetterDisplay");
+        if (letterDisplay != null) letterDisplay.SetActive(false);
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
     }

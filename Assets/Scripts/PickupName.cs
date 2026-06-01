@@ -1,6 +1,8 @@
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using System.Collections;
+
 
 
 public class PickupName : MonoBehaviour
@@ -47,11 +49,6 @@ public class PickupName : MonoBehaviour
         letterDisplay.text = collectedLetters;
 
         gameObject.SetActive(false);
-
-        if (collectedLetters == targetName)
-        {
-            ShowReveal();
-        }
     }
     void ReturnLastLetter()
     {
@@ -61,20 +58,31 @@ public class PickupName : MonoBehaviour
         letterDisplay.text = collectedLetters;
     }
 
-    void CheckName()
+
+        void CheckName()
         {
             if (collectedLetters.ToUpper() == targetName.ToUpper())
             {
                 ShowReveal();
-                PuzzleTracker.Instance.CompletePuzzle();
-            }
-            else
+            PuzzleSequence seq = FindFirstObjectByType<PuzzleSequence>();
+            if (seq != null)
             {
+                seq.StartCoroutine(WaitAndComplete());
+            }
+        }
+        else
+        {
             Debug.Log("Wrong name. Try again.");
-            TotalLives.Instance.LoseLife();  
+            TotalLives.Instance.LoseLife();
             collectedLetters = "";
             letterDisplay.text = "";
         }
+    }
+
+        IEnumerator WaitAndComplete()
+        {
+            yield return new WaitForSeconds(4f);  // Show reveal text for 4 seconds
+            PuzzleTracker.Instance.CompletePuzzle();
         }
 
         void ShowReveal()
